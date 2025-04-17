@@ -14,6 +14,14 @@
             <a class="header__logo" href="/">
                 <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
             </a>
+            <form action="{{ url('/') }}" method="GET" class="header__search-form">
+                <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？">
+            </form>
+            <nav class="header__nav">
+                <a href="/logout" class="header__link">ログアウト</a>
+                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                <a href="items/create" class="header__button">出品</a>
+            </nav>
         </div>
     </header>
     <main>
