@@ -8,8 +8,8 @@
 <div class="page-container">
     <h2 class="page-title">会員登録</h2>
 
-    <form action="#" method="POST" class="form">
-        @csrf
+    <form class="form" action="/register" method="post">
+    @csrf
 
         <div class="form-group">
             <label class="form-label" for="name">ユーザー名</label>

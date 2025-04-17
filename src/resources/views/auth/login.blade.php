@@ -8,8 +8,8 @@
 <div class="page-container">
     <h2 class="page-title">ログイン</h2>
 
-    <form method="POST" action="#" class="form">
-        @csrf
+    <form class="form" action="/login" method="post">
+    @csrf
 
         <div class="form-group">
             <label for="email" class="form-label">メールアドレス</label>

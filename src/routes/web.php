@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', [ItemController::class, 'index'])->name('index');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [AuthController::class, 'index']);
+});
 
 Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
 
