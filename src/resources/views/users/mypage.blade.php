@@ -12,7 +12,7 @@
             <div class="user-name">ユーザー名</div>
         </div>
         <div class="edit-button">
-            <a href="#" class="btn-edit">プロフィールを編集</a>
+            <a href="{{ route('profile.edit') }}" class="btn-edit">プロフィールを編集</a>
         </div>
     </div>
 

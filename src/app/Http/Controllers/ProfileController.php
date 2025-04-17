@@ -10,4 +10,9 @@ class ProfileController extends Controller
     {
         return view('users.mypage');
     }
+
+    public function edit()
+    {
+        return view('users.edit');
+    }
 }
