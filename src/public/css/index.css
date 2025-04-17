@@ -48,3 +48,42 @@
     margin-top: 5px;
     text-align: left;
 }
+
+/* マイページのユーザー部分 */
+
+.mypage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 150px;
+}
+
+.user-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+.user-info {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.edit-button {
+    margin-left: auto;
+}
+
+.btn-edit {
+    padding: 8px 16px;
+    border: 1px solid #f66;
+    border-radius: 6px;
+    color: #f66;
+    text-decoration: none;
+    font-weight: bold;
+}
