@@ -21,7 +21,7 @@
                 <nav class="header__nav">
                     <form class="form" action="/logout" method="post">
                     @csrf
-                        <button class="header-nav__button">ログアウト</button>
+                        <button class="header__link-button">ログアウト</button>
                     </form>
                     <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
                     <a href="{{ route('create') }}" class="header__button">出品</a>
