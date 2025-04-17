@@ -1,0 +1,50 @@
+.tab-menu {
+    display: flex;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 30px;
+}
+
+.tab-menu a {
+    margin-left: 100px;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+
+.tab-menu .active {
+    color: red;
+}
+
+.item-list {
+    display: flex;
+    gap: 40px;
+    padding: 30px 40px;
+    flex-wrap: wrap;
+}
+
+.item-card {
+    width: 200px;
+    text-align: center;
+}
+
+.item-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-image.no-image {
+    font-size: 18px;
+    color: #333;
+}
+
+.item-name {
+    margin-top: 5px;
+    text-align: left;
+}
