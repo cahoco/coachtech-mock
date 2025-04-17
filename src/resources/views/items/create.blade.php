@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="page-container">
-    <h2 class="profile-edit-title">商品の出品</h2>
+    <h2 class="page-title">商品の出品</h2>
 
     <form action="#" method="POST" enctype="multipart/form-data" class="form">
         @csrf
@@ -44,10 +44,10 @@
             <label class="form-label">商品の状態</label>
             <select name="condition" class="form-select">
                 <option value="">選択してください</option>
-                <option value="新品">新品</option>
-                <option value="未使用に近い">未使用に近い</option>
+                <option value="良好">良好</option>
                 <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
                 <option value="やや傷や汚れあり">やや傷や汚れあり</option>
+                <option value="状態が悪い">状態が悪い</option>
             </select>
         </div>
 

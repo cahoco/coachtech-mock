@@ -1,7 +1,43 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}?v={{ time() }}">
+@endsection
+
 @section('content')
-<div class="">
-    <p>register.blade.php</P>
+<div class="page-container">
+    <h2 class="page-title">会員登録</h2>
+
+    <form action="#" method="POST" class="form">
+        @csrf
+
+        <div class="form-group">
+            <label class="form-label" for="name">ユーザー名</label>
+            <input type="text" id="name" name="name" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="password">パスワード</label>
+            <input type="password" id="password" name="password" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="password_confirmation">確認用パスワード</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" class="form-input">
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" class="submit-button">登録する</button>
+        </div>
+    </form>
+
+    <div class="link">
+        <a href="/login">ログインはこちら</a>
+    </div>
 </div>
 @endsection

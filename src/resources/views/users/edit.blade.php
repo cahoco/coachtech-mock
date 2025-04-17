@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="page-container">
-    <h1 class="profile-edit-title">プロフィール設定</h1>
+    <h1 class="page-title">プロフィール設定</h1>
 
     <div class="profile-image-block">
         <div class="image-preview"></div>
