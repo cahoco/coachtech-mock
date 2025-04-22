@@ -14,7 +14,6 @@
             <a class="header__logo" href="/">
                 <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
             </a>
-            @if (Auth::check())
                 <form action="{{ url('/') }}" method="GET" class="header__search-form">
                     <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？">
                 </form>
@@ -26,7 +25,6 @@
                     <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
                     <a href="{{ route('create') }}" class="header__button">出品</a>
                 </nav>
-            @endif
         </div>
     </header>
     <main>

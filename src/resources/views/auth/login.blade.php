@@ -13,12 +13,14 @@
 
         <div class="form-group">
             <label for="email" class="form-label">メールアドレス</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email">
+            @error('email')<div class="error-message">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-group">
             <label for="password" class="form-label">パスワード</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password">
+            @error('password')<div class="error-message">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-submit">

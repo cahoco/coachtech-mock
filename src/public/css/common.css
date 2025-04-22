@@ -76,3 +76,11 @@
 .header__button:hover {
     transform: scale(1.05);
 }
+
+/* バリデーション */
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
