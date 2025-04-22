@@ -10,8 +10,10 @@ use App\Http\Requests\RegisterRequest;
 
 Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
 
-Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 Route::get('/sell', [ItemController::class, 'create'])->name('create');
 
