@@ -9,12 +9,14 @@ class ProfileController extends Controller
 {
     public function mypage()
     {
-        return view('users.mypage');
+        $user = Auth::user(); // ログイン中のユーザーを取得
+        return view('users.mypage', compact('user'));
     }
 
     public function edit()
     {
-        return view('users.edit');
+        $user = auth()->user()->load('profile');
+        return view('users.edit', compact('user'));
     }
 
     public function update(AddressRequest $request)

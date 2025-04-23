@@ -9,7 +9,7 @@
     <div class="mypage-header">
         <div class="user-icon"></div>
         <div class="user-info">
-            <div class="user-name">ユーザー名</div>
+            <div class="user-name">{{ $user->profile->nickname ?? 'ユーザー名未登録' }}</div>
         </div>
         <div class="edit-button">
             <a href="{{ route('profile.edit') }}" class="btn-edit">プロフィールを編集</a>
