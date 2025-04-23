@@ -11,19 +11,19 @@ class ItemsTableSeeder extends Seeder
 {
     public function run()
     {
-        // ダミーユーザーの作成（存在していなければ）
-        $user = User::first() ?? User::factory()->create([
-            'name' => 'タチバナゆずひこ',
-            'email' => 'test@example.com',
-            'password' => bcrypt('00000000'),
+        // ✅ ダミーユーザーの作成（マイページに表示されないように、test@example.comではなくdummy@example.comなどで作成）
+        $dummyUser = User::factory()->create([
+            'name' => 'ダミー出品者',
+            'email' => 'dummy@example.com',
+            'password' => bcrypt('dummy1234'),
         ]);
 
-        $user->profile()->create([
-            'nickname' => 'ゆず',
-            'profile_image' => 'dummy.jpg', // 画像がなくても仮に設定
-            'zipcode' => '123-4567',
-            'address' => '東京都西東京市',
-            'building' => '田無ビルディング501',
+        $dummyUser->profile()->create([
+            'nickname' => 'ダミー太郎',
+            'profile_image' => 'storage/images/dummy.jpg',
+            'zipcode' => '000-0000',
+            'address' => '東京都ダミー市',
+            'building' => 'ダミービル101',
         ]);
 
         $items = [
@@ -103,17 +103,21 @@ class ItemsTableSeeder extends Seeder
             $condition = Condition::where('name', $item['condition'])->first();
 
             if (!$condition) {
-                continue; // 条件が見つからない場合スキップ
+                continue; // 条件が見つからない場合はスキップ
             }
 
-            Item::create([
-                'name' => $item['name'],
-                'price' => $item['price'],
-                'description' => $item['description'],
-                'image' => 'storage/images/' . $item['image'],
-                'condition_id' => $condition->id,
-                'user_id' => $user->id, // 🔑 外部キーを指定
-            ]);
+            foreach ($items as $item) {
+                $condition = Condition::where('name', $item['condition'])->first();
+                if (!$condition) continue;
+                Item::create([
+                    'name' => $item['name'],
+                    'price' => $item['price'],
+                    'description' => $item['description'],
+                    'image' => 'storage/images/' . $item['image'],
+                    'condition_id' => $condition->id,
+                    'user_id' => $dummyUser->id,
+                ]);
+            }
         }
     }
 }

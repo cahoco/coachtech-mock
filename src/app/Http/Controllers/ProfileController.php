@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class ProfileController extends Controller
 {
     public function mypage()
     {
         $user = auth()->user()->load('profile');
-        $items = $user->items()->get(); // 出品した商品
+        $items = Item::where('user_id', auth()->id())->get();
 
         return view('users.mypage', compact('user', 'items'));
     }

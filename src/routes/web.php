@@ -20,12 +20,14 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // 🔐 認証が必要なルートはまとめてここに
 Route::middleware('auth')->group(function () {
-    Route::get('/', [AuthController::class, 'index'])->name('items.index');
+    Route::get('/', [ItemController::class, 'index'])->name('items.index');
     Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/sell', [ItemController::class, 'create'])->name('create');
+    Route::post('/sell', [ItemController::class, 'store'])->name('store');
 });
 
 Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
 
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');

@@ -13,9 +13,14 @@
 </div>
 
 <div class="item-list">
-    <div class="item-card">
-        <div class="item-image no-image">商品画像</div>
-        <div class="item-name">商品名</div>
-    </div>
+    @foreach ($items as $item)
+        <div class="item-card">
+            <a href="{{ route('items.show', ['item_id' => $item->id]) }}">
+                <img src="{{ asset('storage/' . $item->image) }}" class="item-image" alt="商品画像">
+            </a>
+            <div class="item-name">{{ $item->name }}</div>
+        </div>
+    @endforeach
 </div>
+
 @endsection

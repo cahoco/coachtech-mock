@@ -3,39 +3,60 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
+use App\Models\Category;
+use App\Models\Condition;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all(); // 商品一覧を表示したい場合
+        $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
+
+        if ($dummyUser) {
+            $items = Item::where('user_id', $dummyUser->id)->get();
+        } else {
+            $items = collect(); // 空のコレクションを返す
+        }
+
         return view('items.index', compact('items'));
     }
 
     public function create()
     {
-        return view('items.create');
+        $categories = Category::all();
+        $conditions = Condition::all();
+        return view('items.create', compact('categories', 'conditions'));
     }
 
-    // ✅ 商品保存処理を追加
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
+        $validated = $request->validated();
 
-        // 画像保存処理（storage/app/public/images に保存される）
+        // 画像保存（storage/app/public/images → public/storage/images にリンクされている）
         $path = $request->file('image')->store('images', 'public');
 
-        // 登録処理
-        Item::create([
+        // 商品作成
+        $item = Item::create([
             'name' => $validated['name'],
             'price' => $validated['price'],
             'description' => $validated['description'],
-            'image' => $path, // 画像パス
+            'image' => 'storage/' . $path,
             'condition_id' => $validated['condition_id'],
-            'user_id' => Auth::id(), // 出品者ID
+            'user_id' => Auth::id(),
         ]);
 
+        // カテゴリーの登録（中間テーブル）
+        $item->categories()->sync($request->input('categories'));
+
         return redirect()->route('items.index')->with('success', '商品を出品しました');
+    }
+
+    public function show($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+        return view('items.show', compact('item'));
     }
 }
