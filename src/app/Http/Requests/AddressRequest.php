@@ -28,6 +28,7 @@ class AddressRequest extends FormRequest
             'zipcode' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required'],
             'building' => ['required'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 

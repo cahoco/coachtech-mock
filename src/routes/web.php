@@ -26,3 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/sell', [ItemController::class, 'create'])->name('create');
 });
+
+Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
+

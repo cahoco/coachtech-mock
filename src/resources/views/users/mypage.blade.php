@@ -7,7 +7,9 @@
 @section('content')
 <div class="mypage-container">
     <div class="mypage-header">
-        <div class="user-icon"></div>
+        @if ($user->profile->profile_image)
+            <img src="{{ asset($user->profile->profile_image) }}" alt="プロフィール画像" class="user-icon">
+        @endif
         <div class="user-info">
             <div class="user-name">{{ $user->profile->nickname ?? 'ユーザー名未登録' }}</div>
         </div>
@@ -22,10 +24,12 @@
     </div>
 
     <div class="item-list">
+    @foreach ($items as $item)
         <div class="item-card">
-            <div class="item-image no-image">商品画像</div>
-            <div class="item-name">商品名</div>
+            <img src="{{ asset('storage/images/' . $item->image) }}" class="item-image" alt="商品画像">
+            <div class="item-name">{{ $item->name }}</div>
         </div>
+    @endforeach
     </div>
 </div>
 @endsection
