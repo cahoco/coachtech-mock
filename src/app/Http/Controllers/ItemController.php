@@ -11,14 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
+        $tab = $request->query('tab', 'recommend'); // デフォルトはおすすめ
 
-        if ($dummyUser) {
-            $items = Item::where('user_id', $dummyUser->id)->get();
+        if ($tab === 'mylist') {
+            // ✅ ログインユーザーのいいね商品を取得（likesテーブルが中間テーブルの場合）
+            $items = Auth::user()->likes()->with('item')->get()->pluck('item');
         } else {
-            $items = collect(); // 空のコレクションを返す
+            // ✅ ダミーユーザーのおすすめ商品を取得
+            $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
+            if ($dummyUser) {
+                $items = Item::where('user_id', $dummyUser->id)->get();
+            } else {
+                $items = collect(); // 空のコレクション
+            }
         }
 
         return view('items.index', compact('items'));

@@ -7,8 +7,8 @@
 @section('content')
 <div class="tab-container">
     <div class="tab-menu">
-        <a href="#" class="tab active">おすすめ</a>
-        <a href="#" class="tab">マイリスト</a>
+        <a href="{{ route('items.index') }}" class="tab {{ request()->query('tab') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
+        <a href="{{ route('items.index', ['tab' => 'mylist']) }}" class="tab {{ request()->query('tab') === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
 </div>
 
