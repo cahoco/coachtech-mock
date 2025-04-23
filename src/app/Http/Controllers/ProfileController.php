@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function mypage()
     {
-        $user = Auth::user(); // ログイン中のユーザーを取得
+        $user = auth()->user()->load('profile');
         return view('users.mypage', compact('user'));
     }
 

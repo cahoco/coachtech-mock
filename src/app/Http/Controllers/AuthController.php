@@ -34,7 +34,16 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $validated = $request->validated();
-        return view('items/index');
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // セッションにユーザーを保持してログイン成功
+            return redirect()->route('items.index');
+        }
+
+        // ログイン失敗時
+        return back()->withErrors([
+            'email' => 'メールアドレスまたはパスワードが正しくありません。',
+        ]);
     }
 }
