@@ -19,8 +19,8 @@
     </div>
 
     <div class="tab-menu">
-        <a href="#" class="tab active">出品した商品</a>
-        <a href="#" class="tab">購入した商品</a>
+        <a href="{{ route('mypage', ['tab' => 'sell']) }}" class="tab {{ $tab === 'sell' ? 'active' : '' }}">出品した商品</a>
+        <a href="{{ route('mypage', ['tab' => 'buy']) }}" class="tab {{ $tab === 'buy' ? 'active' : '' }}">購入した商品</a>
     </div>
 
     <div class="item-list">
