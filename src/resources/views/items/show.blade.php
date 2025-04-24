@@ -18,12 +18,22 @@
             <div class="product-actions">
                 {{-- いいね数・コメント数 --}}
                 <div class="likes-comments">
-                    <span>☆ {{ $item->likes_count ?? 0 }}</span>
-                    <span>💬 {{ $item->comments_count ?? 0 }}</span>
+                    <div class="icon-block">
+                        <form method="POST" action="{{ route('items.toggleLike', $item->id) }}" class="like-form">
+                            @csrf
+                            <button type="submit" class="like-button">
+                                <img src="{{ Auth::user()->likes->contains($item->id) ? asset('storage/images/liked.png') : asset('storage/images/like.png') }}" alt="いいね" class="icon">
+                            </button>
+                        </form>
+                        <p class="count">{{ $item->likedUsers ? $item->likedUsers->count() : 0 }}</p>
+                    </div>
+                    <div class="icon-block">
+                        <img src="{{ asset('storage/images/comments.png') }}" alt="コメントアイコン" class="icon">
+                        <div class="count">{{ $item->comments_count ?? 0 }}</div>
+                    </div>
                 </div>
-                {{-- 購入ボタン --}}
+                <a href="#" class="buy-button">購入手続きへ</a>
             </div>
-            <a href="#" class="buy-button">購入手続きへ</a>
 
             <h3 class="section-title">商品説明</h3>
             <p class="product-description">{!! nl2br(e($item->description)) !!}</p>
@@ -44,13 +54,17 @@
                 <div class="comment-section">
                     <h3 class="comment-title1">コメント ({{ $item->comments ? $item->comments->count() : 0 }})</h3>
                     @foreach($item->comments as $comment)
-                        <div class="comment-box">
-                            <div class="user-icon-and-content">
-                                <img src="{{ asset($comment->user->profile->profile_image ?? 'storage/images/default.png') }}" alt="プロフィール画像">
-                                <strong class="comment-username">{{ $comment->user->profile->nickname ?? 'ユーザー' }}</strong>
-                                <div class="comment-content">{{ $comment->content }}</div>
-                            </div>
+                    <div class="comment-box">
+                        {{-- プロフィール画像と名前を横並びにする --}}
+                        <div class="comment-header">
+                            <img src="{{ asset($comment->user->profile->profile_image ?? 'storage/images/default.png') }}" alt="プロフィール画像">
+                            <strong class="comment-username">{{ $comment->user->profile->nickname ?? 'ユーザー' }}</strong>
                         </div>
+                        {{-- コメントは画像の下に左寄せで表示 --}}
+                        <div class="comment-content">
+                            {{ $comment->content }}
+                        </div>
+                    </div>
                     @endforeach
 
                         <h3 class="comment-title2">商品へのコメント</h3>

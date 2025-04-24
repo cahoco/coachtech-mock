@@ -54,9 +54,50 @@
     margin-bottom: 24px;
 }
 
-.likes-comments span {
-    margin-right: 16px;
+.like-form {
+    display: inline-block; /* ✅ formをインライン化して余白を防ぐ */
+    padding: 0;
+    margin: 0;
+    line-height: 0; /* ✅ 下の余白をなくす */
+}
+
+.likes-comments {
+    display: flex;
+    gap: 50px;
+    margin-left: 30px;
+}
+
+.like-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    width: fit-content; /* ✅ imgの幅にぴったり合わせる */
+    display: inline-block; /* ✅ 余計な縦の余白を防ぐ */
+}
+
+.like-button img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.icon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+.count {
     font-size: 16px;
+    margin-top: 4px;
 }
 
 .buy-button {
@@ -120,12 +161,24 @@
 }
 
 .comment-box {
-    display: flex;
-    align-items: flex-start;
     margin-bottom: 20px;
+    max-width: 360px;
 }
 
-.user-icon img {
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.comment-header img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -135,11 +188,10 @@
 .comment-content {
     background-color: #eee;
     padding: 10px 12px;
-    border-radius: 6px;
+    border-radius: 2px;
     line-height: 1.5;
+    box-sizing: border-box;
     width: 100%;
-    max-width: 360px; /* ✅ ボタンと同じ最大幅に揃える */
-    box-sizing: border-box; /* ✅ padding を含めてサイズ計算する */
 }
 
 .comment-body strong {
@@ -170,7 +222,7 @@
     height: 100px;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 2px;
     resize: vertical;
     box-sizing: border-box;
     margin-bottom: 15px;

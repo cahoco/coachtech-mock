@@ -34,3 +34,4 @@ Route::post('/items/store', [ItemController::class, 'store'])->name('items.store
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
 Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
+Route::post('/items/{item}/like', [ItemController::class, 'toggleLike'])->name('items.toggleLike');

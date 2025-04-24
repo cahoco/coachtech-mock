@@ -63,8 +63,23 @@ class ItemController extends Controller
 
     public function show($item_id)
     {
-        $item = Item::with(['categories', 'condition', 'comments.user.profile'])->findOrFail($item_id);
+        $item = Item::with(['likedUsers', 'comments.user.profile'])
+            ->withCount('comments')
+            ->findOrFail($item_id);
 
         return view('items.show', compact('item'));
+    }
+
+    public function toggleLike(Item $item)
+    {
+        $user = Auth::user();
+
+        if ($user->likes->contains($item->id)) {
+            $user->likes()->detach($item->id);
+        } else {
+            $user->likes()->attach($item->id);
+        }
+
+        return back();
     }
 }
