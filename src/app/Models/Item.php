@@ -42,4 +42,10 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class, 'category_item');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

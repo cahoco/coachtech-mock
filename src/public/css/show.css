@@ -1,0 +1,195 @@
+.show-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: sans-serif;
+}
+
+.product-image {
+    margin: 30px;
+}
+
+.product-detail {
+    margin: 0px 30px;
+}
+
+.product-main {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.product-image img {
+    width: 400px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.product-detail {
+    flex: 1;
+}
+
+.product-title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.product-brand {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.product-price {
+    font-size: 25px;
+    margin-bottom: 16px;
+}
+
+.product-actions {
+    display: flex;
+    flex-direction: column; /* ←縦並びにする */
+    align-items: flex-start; /* 左寄せ */
+    gap: 10px; /* いいねとボタンの間に余白 */
+    margin-bottom: 24px;
+}
+
+.likes-comments span {
+    margin-right: 16px;
+    font-size: 16px;
+}
+
+.buy-button {
+    background: #f66;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin: 24px 0 8px;
+}
+
+.product-description {
+    white-space: pre-line;
+    line-height: 1.5;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+.product-meta {
+    margin-top: 12px;
+}
+
+.product-meta span:first-child {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.product-meta .categories {
+    margin-top: 22px;
+    margin-bottom: 16px; /* ✅ カテゴリーと状態の間に余白追加 */
+}
+
+.product-meta .condition span:first-child {
+    font-weight: bold;
+    margin-right: 50px; /* ✅ 「商品の状態」と「良好」の間隔 */
+    display: inline-block;
+}
+
+.category-tag {
+    display: inline-block;
+    background: #eee;
+    border-radius: 12px;
+    padding: 4px 12px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.comment-section {
+    margin-top: 40px;
+}
+
+.comment-box {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.comment-content {
+    background-color: #eee;
+    padding: 10px 12px;
+    border-radius: 6px;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 360px; /* ✅ ボタンと同じ最大幅に揃える */
+    box-sizing: border-box; /* ✅ padding を含めてサイズ計算する */
+}
+
+.comment-body strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.comment-title1 {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #5f5f5f;
+}
+
+.comment-title2 {
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.comment-form {
+    max-width: 360px; /* ✅ コメントフォーム全体の最大幅を設定 */
+    width: 100%;
+}
+
+.comment-form textarea {
+    display: block;
+    width: 100%;
+    height: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.submit-button {
+    margin-top: 10px;
+    background-color: #f66;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 2px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    max-width: 360px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 4px;
+}

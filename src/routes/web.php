@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Requests\RegisterRequest;
 
 // 認証不要のルート
@@ -31,3 +32,5 @@ Route::middleware('auth')->group(function () {
 Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
 
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
+
+Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
