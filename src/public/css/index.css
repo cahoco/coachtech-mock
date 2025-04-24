@@ -91,3 +91,15 @@
 .edit-button:hover {
     transform: scale(1.05);
 }
+
+.sold-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 14px;
+    border-bottom-right-radius: 6px;
+}

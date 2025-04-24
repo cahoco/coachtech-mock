@@ -8,20 +8,18 @@ use App\Models\Item;
 
 class ProfileController extends Controller
 {
-    public function mypage(Request $request) // ← 修正ポイント
+    public function mypage(Request $request)
     {
         $user = auth()->user()->load('profile');
         $tab = $request->query('tab', 'sell'); // ← クエリパラメータからtabを取得
 
-        if ($tab === 'buy') {
-            // 購入商品（Order経由でItem取得）※orders()リレーションが必要
-            $items = $user->orders()->with('item')->get()->pluck('item');
-        } else {
-            // 出品商品
-            $items = $user->items;
-        }
+        // 出品商品（常に取得）
+        $soldItems = $user->items;
 
-        return view('users.mypage', compact('user', 'items', 'tab'));
+        // 購入商品（Order経由でItem取得）
+        $purchasedItems = $user->orders()->with('item')->get()->pluck('item');
+
+        return view('users.mypage', compact('user', 'tab', 'soldItems', 'purchasedItems'));
     }
 
     public function edit()

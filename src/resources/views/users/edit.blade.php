@@ -13,7 +13,7 @@
         @if (!empty($user->profile->profile_image))
             <img src="{{ asset('storage/' . $user->profile->profile_image) }}" alt="プロフィール画像" class="image-preview">
         @else
-            <div class="image-preview">プロフィール画像</div>
+            <div class="image-preview"></div>
         @endif
         <label for="profile_image" class="image-button">画像を選択する</label>
     </div>

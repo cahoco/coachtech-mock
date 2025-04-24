@@ -58,4 +58,14 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
 
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
+
+    public function isSold()
+    {
+        return $this->order()->exists();
+    }
+
 }

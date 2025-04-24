@@ -32,7 +32,7 @@
                         <div class="count">{{ $item->comments_count ?? 0 }}</div>
                     </div>
                 </div>
-                <a href="#" class="buy-button">購入手続きへ</a>
+                <a href="{{ route('orders.confirm', ['item_id' => $item->id]) }}" class="buy-button">購入手続きへ</a>
             </div>
 
             <h3 class="section-title">商品説明</h3>
@@ -57,7 +57,9 @@
                     <div class="comment-box">
                         {{-- プロフィール画像と名前を横並びにする --}}
                         <div class="comment-header">
-                            <img src="{{ asset($comment->user->profile->profile_image ?? 'storage/images/default.png') }}" alt="プロフィール画像">
+                        <img src="{{ $comment->user->profile && $comment->user->profile->profile_image
+                            ? asset($comment->user->profile->profile_image)
+                            : asset('storage/images/default.png') }}">
                             <strong class="comment-username">{{ $comment->user->profile->nickname ?? 'ユーザー' }}</strong>
                         </div>
                         {{-- コメントは画像の下に左寄せで表示 --}}
