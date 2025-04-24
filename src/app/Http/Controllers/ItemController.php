@@ -16,16 +16,12 @@ class ItemController extends Controller
         $tab = $request->query('tab', 'recommend'); // デフォルトはおすすめ
 
         if ($tab === 'mylist') {
-            // ✅ ログインユーザーのいいね商品を取得（likesテーブルが中間テーブルの場合）
-            $items = Auth::user()->likes()->with('item')->get()->pluck('item');
+            // 👍 ユーザーがいいねした商品を取得
+            $items = Auth::user()->likedItems()->with(['likedUsers', 'comments'])->get();
         } else {
-            // ✅ ダミーユーザーのおすすめ商品を取得
+            // 👍 ダミーユーザーのおすすめ商品
             $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
-            if ($dummyUser) {
-                $items = Item::where('user_id', $dummyUser->id)->get();
-            } else {
-                $items = collect(); // 空のコレクション
-            }
+            $items = $dummyUser ? Item::where('user_id', $dummyUser->id)->with(['likedUsers', 'comments'])->get() : collect();
         }
 
         return view('items.index', compact('items'));
