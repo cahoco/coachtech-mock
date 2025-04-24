@@ -6,23 +6,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
-use App\Http\Requests\RegisterRequest;
 
-// 🔓 認証不要のルート
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
+// 🔓 認証不要
+Route::get('/register', fn () => view('auth.register'))->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
+Route::get('/login', fn () => view('auth.login'))->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
-// 🔐 認証が必要なルート
+// 🔐 認証が必要
 Route::middleware('auth')->group(function () {
-    // 商品関連
+    // 商品
     Route::get('/', [ItemController::class, 'index'])->name('items.index');
     Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
     Route::get('/sell', [ItemController::class, 'create'])->name('create');
@@ -32,7 +25,7 @@ Route::middleware('auth')->group(function () {
     // コメント
     Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
-    // マイページ／プロフィール
+    // プロフィール・マイページ
     Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -41,9 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [OrderController::class, 'confirm'])->name('orders.confirm');
     Route::post('/purchase/{item_id}', [OrderController::class, 'store'])->name('orders.store');
 
-    // 配送先住所（購入時）
-    Route::get('/purchase/address/{item_id}', [ItemController::class, 'edit'])->name('purchase.address.edit');
-    Route::post('/purchase/address/{item_id}', [ItemController::class, 'update'])->name('purchase.address.update');
+    // 配送先
+    Route::get('/purchase/address/{item_id}', [ProfileController::class, 'editAddress'])->name('purchase.address.edit');
+    Route::post('/purchase/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('purchase.address.update');
 });
-
-Route::get('/products/search', [ItemController::class, 'index'])->name('items.search');

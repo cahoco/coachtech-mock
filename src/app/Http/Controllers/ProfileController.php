@@ -57,4 +57,27 @@ class ProfileController extends Controller
         return redirect()->route('items.index')->with('success', 'プロフィールを更新しました');
     }
 
+    // 住所変更画面の表示
+    public function editAddress($item_id)
+    {
+        $user = Auth::user()->load('profile');
+        $item = \App\Models\Item::findOrFail($item_id);
+        return view('orders.address', compact('user', 'item'));
+    }
+
+    public function updateAddress(AddressRequest $request, $item_id)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validated();
+
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            $validated
+        );
+
+        return redirect()->route('orders.confirm', ['item_id' => $item_id])
+                        ->with('success', '住所を更新しました');
+    }
+
 }
