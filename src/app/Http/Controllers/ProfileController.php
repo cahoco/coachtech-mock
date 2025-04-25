@@ -29,7 +29,7 @@ class ProfileController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(AddressRequest $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
 

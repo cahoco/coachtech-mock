@@ -101,23 +101,15 @@ class ItemsTableSeeder extends Seeder
 
         foreach ($items as $item) {
             $condition = Condition::where('name', $item['condition'])->first();
-
-            if (!$condition) {
-                continue; // 条件が見つからない場合はスキップ
-            }
-
-            foreach ($items as $item) {
-                $condition = Condition::where('name', $item['condition'])->first();
-                if (!$condition) continue;
-                Item::create([
-                    'name' => $item['name'],
-                    'price' => $item['price'],
-                    'description' => $item['description'],
-                    'image' => 'storage/images/' . $item['image'],
-                    'condition_id' => $condition->id,
-                    'user_id' => $dummyUser->id,
-                ]);
-            }
+            if (!$condition) continue;
+            Item::create([
+                'name' => $item['name'],
+                'price' => $item['price'],
+                'description' => $item['description'],
+                'image' => 'storage/images/' . $item['image'],
+                'condition_id' => $condition->id,
+                'user_id' => $dummyUser->id,
+            ]);
         }
     }
 }
