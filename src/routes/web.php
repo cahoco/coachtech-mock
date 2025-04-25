@@ -7,12 +7,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 
-// 🔓 認証不要
-Route::get('/register', fn () => view('auth.register'))->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', fn () => view('auth.login'))->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
 // 🔐 認証が必要
 Route::middleware('auth')->group(function () {
     // 商品
