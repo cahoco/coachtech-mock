@@ -7,6 +7,12 @@
     font-family: sans-serif;
 }
 
+.order-box {
+    padding: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #999; /* 👈 下線に変更 */
+}
+
 .order-left {
     flex: 1;
 }
@@ -17,14 +23,14 @@
 
 .item-summary {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    align-items: flex-start; /* 👈 上に揃える */
+    gap: 50px; /* 👈 画像との余白を広げるならここ調整 */
     margin-bottom: 16px;
 }
 
 .item-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: #ccc;
     object-fit: cover;
 }
@@ -32,11 +38,13 @@
 .item-info {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start; /* 👈 上寄せ */
+    margin-top: 8px; /* 👈 必要に応じて微調整 */
 }
 
 .item-name {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 6px;
 }
 
@@ -62,6 +70,21 @@ hr {
     font-size: 14px;
 }
 
+.order-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-select {
+    width: 50%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    margin-left: 50px;
+}
+
 .address-section {
     margin-top: 24px;
 }
@@ -72,28 +95,57 @@ hr {
 }
 
 .address-detail {
-    margin-bottom: 4px;
+    margin-bottom: 40px;
     line-height: 1.5;
+    margin-left: 50px;
 }
 
-.address-section a {
+.order-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.address-edit-link {
     color: #1a73e8;
-    font-size: 14px;
-    margin-top: 8px;
-    display: inline-block;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.address-edit-link:hover {
+    text-decoration: underline;
 }
 
 .order-summary {
     border: 1px solid #ccc;
-    padding: 16px;
     font-size: 14px;
     margin-bottom: 24px;
+    padding: 0; /* ← padding除去して個別で調整 */
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 35px;
+    margin-bottom: 12px;
 }
 
 .summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    padding: 20px 16px; /* ← 左右も指定 */
+    margin: 0; /* ← 不要な余白除去 */
+}
+
+.summary-row:not(:last-child) {
+    border-bottom: 1px solid #ccc; /* ← 中央の線。ぴったり外枠に */
+}
+
+.summary-row span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.5;
 }
 
 .purchase-button {

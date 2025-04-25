@@ -34,12 +34,14 @@
 
         {{-- 配送先情報 --}}
         <div class="order-box">
-            <div class="order-label">配送先</div>
+            <div class="order-box-header">
+                <div class="order-label">配送先</div>
+                <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}" class="address-edit-link">変更する</a>
+            </div>
             <div class="address-detail">
                 <p>〒{{ $address->zipcode }}</p>
                 <p>{{ $address->address }} {{ $address->building }}</p>
             </div>
-            <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}">変更する</a>
         </div>
     </div>
 
@@ -51,7 +53,7 @@
             <input type="hidden" name="payment_method" value="{{ request('payment_method') }}">
 
             <div class="order-summary">
-                <div class="summary-row">
+                <div class="summary-row border-bottom">
                     <span>商品代金</span>
                     <span>¥{{ number_format($item->price) }}</span>
                 </div>
