@@ -76,9 +76,7 @@
 
                                 <div class="form-group">
                                     <textarea name="content" class="form-textarea" rows="3" placeholder="コメントを入力してください"></textarea>
-                                    @error('content')
-                                        <div class="error-message">{{ $message }}</div>
-                                    @enderror
+                                    @error('content')<div class="error-message">{{ $message }}</div>@enderror
                                 </div>
 
                                 <div class="form-submit">
