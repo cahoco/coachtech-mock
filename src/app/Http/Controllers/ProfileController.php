@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -46,7 +47,7 @@ class ProfileController extends Controller
         $user->profile()->updateOrCreate(
             ['user_id' => $user->id],
             [
-                'nickname' => $validated['name'],
+                'nickname' => $validated['nickname'],
                 'zipcode' => $validated['zipcode'],
                 'address' => $validated['address'],
                 'building' => $validated['building'],

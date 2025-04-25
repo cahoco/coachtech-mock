@@ -29,9 +29,9 @@
 
 
         <div class="form-group">
-            <label for="name" class="form-label">ユーザー名</label>
-            <input type="text" id="name" name="name" class="form-input" value="{{ old('name', $user->profile->nickname ?? '') }}">
-            @error('name')<div class="error-message">{{ $message }}</div>@enderror
+            <label for="nickname" class="form-label">ユーザー名</label>
+            <input type="text" id="nickname" name="nickname" class="form-input" value="{{ old('nickname', $user->profile->nickname ?? '') }}">
+            @error('nickname')<div class="error-message">{{ $message }}</div>@enderror
         </div>
 
         <div class="form-group">

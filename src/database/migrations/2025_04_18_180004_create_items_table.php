@@ -16,6 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('brand')->nullable(); // 👈 brandカラムを追加
             $table->text('description');
             $table->string('image')->nullable();
             $table->integer('price');
