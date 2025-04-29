@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -17,8 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
-
+    public const HOME = '/redirect-after-login';
     /**
      * The controller namespace for the application.
      *
@@ -36,6 +36,18 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
+
+        // ✅ Fortifyリダイレクト制御用ルートを追加
+        Route::middleware('web')->group(function () {
+            Route::get('/redirect-after-login', function () {
+                \Log::info('リダイレクト先を判定: needs_profile_setup = ' . json_encode(Session::get('needs_profile_setup')));
+
+                if (Session::pull('needs_profile_setup')) {
+                    return redirect('/mypage/profile'); // 登録直後はプロフィール設定へ
+                }
+                return redirect('/'); // 通常ログイン時は商品一覧へ
+            });
+        });
 
         $this->routes(function () {
             Route::prefix('api')

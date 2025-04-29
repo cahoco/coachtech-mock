@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Support\Facades\Session;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -27,12 +28,16 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         $user->profile()->create([
-            'nickname' => $input['name'],
-            'zipcode' => '000-0000',
+            'nickname' => '',
+            'zipcode' => '',
             'address' => '',
             'building' => '',
             'profile_image' => null,
         ]);
+
+        Session::put('needs_profile_setup', true);
+
+        \Log::info('セッション全体: ' . json_encode(Session::all()));
 
         return $user;
     }

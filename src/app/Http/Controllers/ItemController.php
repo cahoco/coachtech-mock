@@ -44,7 +44,10 @@ class ItemController extends Controller
         $validated = $request->validated();
 
         // 画像保存（storage/app/public/images → public/storage/images にリンクされている）
-        $path = $request->file('image')->store('images', 'public');
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+        }
 
         // 商品作成
         $item = Item::create([
@@ -54,6 +57,7 @@ class ItemController extends Controller
             'image' => 'storage/' . $path,
             'condition_id' => $validated['condition_id'],
             'user_id' => Auth::id(),
+            'brand' => $request->input('brand'),
         ]);
 
         // カテゴリーの登録（中間テーブル）

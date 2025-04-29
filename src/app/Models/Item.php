@@ -12,10 +12,11 @@ class Item extends Model
     // 複数代入を許可するカラム（保存時に使う）
     protected $fillable = [
         'name',
+        'brand',
         'description',
         'price',
         'condition_id',
-        'image_path',
+        'image',
         'user_id',
     ];
 

@@ -7,6 +7,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/login', [AuthController::class, 'login']);
+
 // 🔐 認証が必要
 Route::middleware('auth')->group(function () {
     // 商品
