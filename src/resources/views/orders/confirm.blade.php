@@ -36,7 +36,7 @@
         <div class="order-box">
             <div class="order-box-header">
                 <div class="order-label">配送先</div>
-                <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}" class="address-edit-link">変更する</a>
+                    <a href="{{ route('purchase.address.edit', ['item_id' => $item->id]) }}?payment_method={{ request('payment_method') }}" class="address-edit-link">変更する</a>
             </div>
             <div class="address-detail">
                 <p>〒{{ $address->zipcode }}</p>

@@ -103,3 +103,8 @@
     font-size: 14px;
     border-bottom-right-radius: 6px;
 }
+
+.item-card a {
+    color: black; /* 黒文字にする */
+    text-decoration: none; /* 下線を消す */
+}

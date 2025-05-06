@@ -19,9 +19,15 @@ class ItemController extends Controller
         if ($tab === 'mylist') {
             $items = Auth::user()->likedItems()->with(['likedUsers', 'comments', 'order']);
         } else {
-            $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
-            $items = Item::where('user_id', $dummyUser->id)->with(['likedUsers', 'comments', 'order']);
+            $items = Item::where('user_id', '!=', Auth::id()) // 👈 自分以外
+                            ->with(['likedUsers', 'comments', 'order']);
         }
+        // if ($tab === 'mylist') {
+        //     $items = Auth::user()->likedItems()->with(['likedUsers', 'comments', 'order']);
+        // } else {
+        //     $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
+        //     $items = Item::where('user_id', $dummyUser->id)->with(['likedUsers', 'comments', 'order']);
+        // }
 
         // 🔍 キーワード検索を追加
         if ($keyword) {
@@ -63,7 +69,7 @@ class ItemController extends Controller
         // カテゴリーの登録（中間テーブル）
         $item->categories()->sync($request->input('categories'));
 
-        return redirect()->route('items.index')->with('success', '商品を出品しました');
+        return redirect()->route('mypage')->with('success', '商品を出品しました');
     }
 
     public function show($item_id)

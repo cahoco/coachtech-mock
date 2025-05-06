@@ -23,6 +23,8 @@ class OrderController extends Controller
     public function store(PurchaseRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
+        $user = Auth::user();
+        $profile = $user->profile;
 
         if ($item->order) {
             return back()->withErrors(['message' => 'すでに購入されています']);
@@ -32,6 +34,9 @@ class OrderController extends Controller
             'user_id' => Auth::id(),
             'item_id' => $item->id,
             'payment_method' => $request->payment_method,
+            'zipcode' => $profile->zipcode,
+            'address' => $profile->address,
+            'building' => $profile->building,
         ]);
 
         return redirect()->route('mypage')->with('success', '購入が完了しました');

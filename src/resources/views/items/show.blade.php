@@ -32,7 +32,9 @@
                         <div class="count">{{ $item->comments_count ?? 0 }}</div>
                     </div>
                 </div>
-                <a href="{{ route('orders.confirm', ['item_id' => $item->id]) }}" class="buy-button">購入手続きへ</a>
+                @unless (Auth::id() === $item->user_id)
+                    <a href="{{ route('orders.confirm', ['item_id' => $item->id]) }}" class="buy-button">購入手続きへ</a>
+                @endunless
             </div>
 
             <h3 class="section-title">商品説明</h3>

@@ -156,6 +156,10 @@
     font-size: 14px;
 }
 
+.categories span:first-child {
+    margin-right: 40px; /* 👈 カテゴリーラベルとタグの間を空ける */
+}
+
 .comment-section {
     margin-top: 40px;
 }

@@ -77,7 +77,10 @@ class ProfileController extends Controller
             $validated
         );
 
-        return redirect()->route('orders.confirm', ['item_id' => $item_id])
+        return redirect()->route('orders.confirm', [
+            'item_id' => $item_id,
+            'payment_method' => $request->payment_method,
+        ])
                         ->with('success', '住所を更新しました');
     }
 

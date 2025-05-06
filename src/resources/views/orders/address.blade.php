@@ -10,6 +10,7 @@
 
     <form action="{{ route('purchase.address.update', ['item_id' => $item->id]) }}" method="POST" class="form">
         @csrf
+        <input type="hidden" name="payment_method" value="{{ request('payment_method') }}">
 
         <div class="form-group">
             <label for="zipcode" class="form-label">郵便番号</label>

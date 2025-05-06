@@ -30,16 +30,23 @@
             </div>
         @endforeach
     </div>
-@else
-    <div class="item-list">
-        @foreach ($soldItems as $item)
-            <div class="item-card">
-                <img src="{{ asset($item->image) }}" class="item-image" alt="商品画像">
-                <div class="item-name">{{ $item->name }}</div>
-            </div>
-        @endforeach
-    </div>
-@endif
+    @else
+        <div class="item-list">
+            @foreach ($soldItems as $item)
+                <div class="item-card">
+                    <a href="{{ route('items.show', ['item_id' => $item->id]) }}" class="item-link">
+                        <div class="item-image-wrapper" style="position: relative;">
+                            <img src="{{ asset($item->image) }}" class="item-image" alt="商品画像">
+                            @if ($item->order)
+                                <div class="sold-label">SOLD</div>
+                            @endif
+                        </div>
+                        <div class="item-name">{{ $item->name }}</div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    @endif
 
 </div>
 @endsection
