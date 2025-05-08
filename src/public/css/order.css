@@ -5,6 +5,7 @@
     margin: 40px auto;
     gap: 40px;
     font-family: sans-serif;
+    padding: 0 20px;
 }
 
 .order-box {
@@ -158,4 +159,16 @@ hr {
     border: none;
     cursor: pointer;
     border-radius: 2px;
+}
+
+@media screen and (max-width: 850px) {
+    .order-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 16px;
+    }
+
+    .order-right {
+        width: 100%;
+    }
 }
