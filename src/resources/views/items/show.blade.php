@@ -22,7 +22,11 @@
                         <form method="POST" action="{{ route('items.toggleLike', $item->id) }}" class="like-form">
                             @csrf
                             <button type="submit" class="like-button">
-                                <img src="{{ Auth::user()->likes->contains($item->id) ? asset('storage/images/liked.png') : asset('storage/images/like.png') }}" alt="いいね" class="icon">
+                            @if (Auth::check() && Auth::user()->likes->contains($item->id))
+                                <img src="{{ asset('storage/images/liked.png') }}" alt="いいね" class="icon">
+                            @else
+                                <img src="{{ asset('storage/images/like.png') }}" alt="いいね" class="icon">
+                            @endif
                             </button>
                         </form>
                         <p class="count">{{ $item->likedUsers ? $item->likedUsers->count() : 0 }}</p>

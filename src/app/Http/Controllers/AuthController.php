@@ -34,16 +34,11 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+        // LoginRequest内でバリデーション & 認証失敗時のメッセージ処理
+        $request->authenticate();
 
-        if (Auth::attempt($credentials)) {
-            // セッションにユーザーを保持してログイン成功
-            return redirect()->route('items.index');
-        }
-
-        // ログイン失敗時
-        return back()->withErrors([
-            'email' => 'メールアドレスまたはパスワードが正しくありません。',
-        ]);
+        // 認証成功時
+        return redirect()->route('items.index');
     }
+
 }

@@ -32,13 +32,22 @@
             </form>
 
             <nav class="header__nav">
+            @auth
                 <form class="form" action="/logout" method="post">
                     @csrf
                     <button class="header__link-button">ログアウト</button>
                 </form>
                 <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
                 <a href="{{ route('create') }}" class="header__button">出品</a>
-            </nav>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="header__link">ログイン</a>
+                <a href="{{ route('login') }}" class="header__link">マイページ</a>
+                <a href="{{ route('login') }}" class="header__button">出品</a>
+            @endguest
+        </nav>
+
         </div>
     </header>
 

@@ -8,7 +8,11 @@
 <div class="tab-container">
     <div class="tab-menu">
         <a href="{{ route('items.index', ['tab' => 'recommend', 'keyword' => request('keyword')]) }}" class="tab {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>
-        <a href="{{ route('items.index', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}" class="tab {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+        @auth
+            <a href="{{ route('items.index', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}" class="tab {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+        @else
+            <a href="{{ route('login') }}" class="tab">マイリスト</a>
+        @endauth
     </div>
 </div>
 

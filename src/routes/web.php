@@ -12,11 +12,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
+
 // 🔐 認証が必要
 Route::middleware('auth')->group(function () {
     // 商品
-    Route::get('/', [ItemController::class, 'index'])->name('items.index');
-    Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
     Route::get('/sell', [ItemController::class, 'create'])->name('create');
     Route::post('/sell', [ItemController::class, 'store'])->name('store');
     Route::post('/items/{item}/like', [ItemController::class, 'toggleLike'])->name('items.toggleLike');
@@ -36,4 +37,6 @@ Route::middleware('auth')->group(function () {
     // 配送先
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'editAddress'])->name('purchase.address.edit');
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('purchase.address.update');
+
+    Route::get('/orders/success/{item_id}', [OrderController::class, 'success'])->name('orders.success');
 });
