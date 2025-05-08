@@ -9,12 +9,15 @@
     @yield('css')
 </head>
 <body>
-    <header class="header">
-        <div class="header__inner">
-            <a class="header__logo" href="{{ route('items.index') }}">
-                <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
-            </a>
+<header class="header">
+    <div class="header__inner">
+        {{-- ロゴは常に表示 --}}
+        <a class="header__logo" href="{{ route('items.index') }}">
+            <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
+        </a>
 
+        {{-- 認証画面でなければ、検索とナビゲーションを表示 --}}
+        @if (!Request::is('email/verify'))
             {{-- 🔍 検索フォーム --}}
             <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
                 <input 
@@ -32,24 +35,24 @@
             </form>
 
             <nav class="header__nav">
-            @auth
-                <form class="form" action="/logout" method="post">
-                    @csrf
-                    <button class="header__link-button">ログアウト</button>
-                </form>
-                <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
-                <a href="{{ route('create') }}" class="header__button">出品</a>
-            @endauth
+                @auth
+                    <form class="form" action="/logout" method="post">
+                        @csrf
+                        <button class="header__link-button">ログアウト</button>
+                    </form>
+                    <a href="{{ route('mypage') }}" class="header__link">マイページ</a>
+                    <a href="{{ route('create') }}" class="header__button">出品</a>
+                @endauth
 
-            @guest
-                <a href="{{ route('login') }}" class="header__link">ログイン</a>
-                <a href="{{ route('login') }}" class="header__link">マイページ</a>
-                <a href="{{ route('login') }}" class="header__button">出品</a>
-            @endguest
-        </nav>
-
-        </div>
-    </header>
+                @guest
+                    <a href="{{ route('login') }}" class="header__link">ログイン</a>
+                    <a href="{{ route('login') }}" class="header__link">マイページ</a>
+                    <a href="{{ route('login') }}" class="header__button">出品</a>
+                @endguest
+            </nav>
+        @endif
+    </div>
+</header>
 
     <main>
         @yield('content')

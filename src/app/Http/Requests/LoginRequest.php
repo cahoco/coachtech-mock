@@ -48,5 +48,15 @@ class LoginRequest extends FormRequest
                 'email' => ['ログイン情報が登録されていません。'],
             ]);
         }
+
+        // ✅ メール認証されていない場合、ログアウトさせてエラー返す
+        if (! Auth::user()->hasVerifiedEmail()) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => ['メールアドレスの認証が完了していません。'],
+            ]);
+        }
     }
+
 }

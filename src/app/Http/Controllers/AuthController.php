@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -19,17 +22,22 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        // ユーザー登録処理
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
 
-        // ここでログインさせる
         Auth::login($user);
 
-        return redirect('/mypage/profile');
+        // メール認証イベント発火（これがないとメール送られない）
+        event(new Registered($user));
+
+        // プロフィール登録フラグは保持したまま
+        Session::put('needs_profile_setup', true);
+
+        // ✅ Fortifyが自動で /email/verify を表示してくれる
+        return redirect()->route('verification.notice');
     }
 
     public function login(LoginRequest $request)

@@ -190,3 +190,46 @@
 .link a:hover {
     text-decoration: underline;
 }
+
+/* verify.blade */
+
+.verify-container {
+    text-align: center;
+    margin-top: 120px;
+}
+
+.verify-text {
+    font-size: 16px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.verify-button {
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.verify-button:hover {
+    background-color: #eee;
+}
+
+.verify-resend-link {
+    font-size: 14px;
+    color: #337ab7;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.verify-resend-link:hover {
+    text-decoration: underline;
+}
