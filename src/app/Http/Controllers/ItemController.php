@@ -17,24 +17,33 @@ class ItemController extends Controller
         $keyword = $request->query('keyword');
 
         if ($tab === 'mylist') {
-            $items = Auth::user()->likedItems()->with(['likedUsers', 'comments', 'order']);
+            if (Auth::check()) {
+                // クエリビルダでフィルタ可能なように最初に join を使う
+                $query = Auth::user()->likedItems()
+                    ->where('items.user_id', '!=', Auth::id())
+                    ->with(['likedUsers', 'comments', 'order']);
+
+                if ($keyword) {
+                    $query->where('name', 'like', '%' . $keyword . '%');
+                }
+
+                $items = $query->get();
+            } else {
+                $items = collect();
+            }
         } else {
-            $items = Item::where('user_id', '!=', Auth::id()) // 👈 自分以外
-                            ->with(['likedUsers', 'comments', 'order']);
-        }
-        // if ($tab === 'mylist') {
-        //     $items = Auth::user()->likedItems()->with(['likedUsers', 'comments', 'order']);
-        // } else {
-        //     $dummyUser = \App\Models\User::where('email', 'dummy@example.com')->first();
-        //     $items = Item::where('user_id', $dummyUser->id)->with(['likedUsers', 'comments', 'order']);
-        // }
+            // ダミーユーザーの表示（例：nameにダミーが含まれる）
+            $query = Item::whereHas('user', function ($q) {
+                $q->where('name', 'like', '%ダミー%');
+            })->with(['likedUsers', 'comments', 'order']);
 
-        // 🔍 キーワード検索を追加
-        if ($keyword) {
-            $items = $items->where('name', 'like', '%' . $keyword . '%');
+            if ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            }
+
+            $items = $query->get();
         }
 
-        $items = $items->get();
         return view('items.index', compact('items', 'tab', 'keyword'));
     }
 
@@ -45,31 +54,31 @@ class ItemController extends Controller
         return view('items.create', compact('categories', 'conditions'));
     }
 
+    // app/Http/Controllers/ItemController.php
+
     public function store(ExhibitionRequest $request)
     {
         $validated = $request->validated();
 
-        // 画像保存（storage/app/public/images → public/storage/images にリンクされている）
-        $path = null;
+        // 画像保存...
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
+            $validated['image'] = 'storage/' . $path;
         }
 
-        // 商品作成
-        $item = Item::create([
-            'name' => $validated['name'],
-            'price' => $validated['price'],
-            'description' => $validated['description'],
-            'image' => 'storage/' . $path,
-            'condition_id' => $validated['condition_id'],
+        $item = Item::create(array_merge($validated, [
             'user_id' => Auth::id(),
-            'brand' => $request->input('brand'),
-        ]);
+            // brand は nullable なので $validated['brand'] がそのまま入る
+        ]));
 
-        // カテゴリーの登録（中間テーブル）
-        $item->categories()->sync($request->input('categories'));
+        // sync する ID の取り出し
+        if ($request->filled('categories')) {
+            $item->categories()->sync($request->input('categories'));
+        } else {
+            $item->categories()->sync([ $request->input('category_id') ]);
+        }
 
-        return redirect()->route('mypage')->with('success', '商品を出品しました');
+        return redirect('/')->with('success', '商品を出品しました');
     }
 
     public function show($item_id)

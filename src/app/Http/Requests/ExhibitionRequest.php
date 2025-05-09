@@ -11,17 +11,25 @@ class ExhibitionRequest extends FormRequest
         return true; // 認証済みユーザーならOK
     }
 
+    // app/Http/Requests/ExhibitionRequest.php
+
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'brand' => ['nullable'],
-            'description' => ['required', 'max:255'],
-            'image' => ['required', 'mimes:jpeg,png,jpg'],
+            'name'         => ['required', 'string'],
+            'brand'        => ['nullable', 'string'],
+            'description'  => ['required', 'string', 'max:255'],
+            'image'        => ['required', 'image', 'mimes:jpeg,png,jpg'],
             'condition_id' => ['required', 'exists:conditions,id'],
-            'categories' => ['required', 'array'],
+
+            // テスト・単一選択用
+            'category_id'  => ['required_without:categories', 'exists:categories,id'],
+
+            // UI・複数選択用
+            'categories'   => ['required_without:category_id', 'array'],
             'categories.*' => ['exists:categories,id'],
-            'price' => ['required', 'integer', 'min:0'],
+
+            'price'        => ['required', 'integer', 'min:0'],
         ];
     }
 

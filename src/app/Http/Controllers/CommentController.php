@@ -9,17 +9,20 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request)
+    public function store(Request $request, $item_id)
     {
-        $validated = $request->validated();
-
-        // 保存処理
-        Comment::create([
-            'user_id' => auth()->id(),
-            'item_id' => $validated['item_id'],
-            'content' => $validated['content'],
+        $request->validate([
+            'content' => 'required|string|max:255',
         ]);
 
-        return back()->with('success', 'コメントを投稿しました');
+        // コメント保存処理
+        Comment::create([
+            'user_id' => auth()->id(),
+            'item_id' => $item_id,
+            'content' => $request->input('content'),  // 'comment'を'content'に変更
+        ]);
+
+        return redirect()->route('items.show', ['item_id' => $item_id]);
     }
+
 }

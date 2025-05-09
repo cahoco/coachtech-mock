@@ -18,12 +18,22 @@ Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show
 // 🔐 認証が必要
 Route::middleware('auth')->group(function () {
     // 商品
-    Route::get('/sell', [ItemController::class, 'create'])->name('create');
-    Route::post('/sell', [ItemController::class, 'store'])->name('store');
-    Route::post('/items/{item}/like', [ItemController::class, 'toggleLike'])->name('items.toggleLike');
+    // ────── 出品画面を表示 ──────
+    Route::get('/sell', [ItemController::class, 'create'])
+    ->name('items.create');
+
+    // ────── テストもフォームも store() に飛ばす ──────
+    // テストが叩く /items/register を明示的に定義
+    Route::post('/items/register', [ItemController::class, 'store'])
+    ->name('items.store');
+
+    //（もし UI から /sell にも POST しているなら併記しておく）
+    Route::post('/sell', [ItemController::class, 'store']);
+
+    Route::post('/like/{item}', [ItemController::class, 'toggleLike'])->name('items.toggleLike');
 
     // コメント
-    Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/comment/{item_id}', [CommentController::class, 'store'])->name('comment.store');
 
     // プロフィール・マイページ
     Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');

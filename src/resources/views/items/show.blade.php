@@ -19,16 +19,17 @@
                 {{-- いいね数・コメント数 --}}
                 <div class="likes-comments">
                     <div class="icon-block">
-                        <form method="POST" action="{{ route('items.toggleLike', $item->id) }}" class="like-form">
-                            @csrf
-                            <button type="submit" class="like-button">
+                    <form method="POST" action="{{ route('items.toggleLike', $item->id) }}" class="like-form">
+                        @csrf
+                        <button type="submit"
+                            class="like-button {{ Auth::check() && Auth::user()->likes->contains($item->id) ? 'liked-icon' : '' }}">
                             @if (Auth::check() && Auth::user()->likes->contains($item->id))
                                 <img src="{{ asset('storage/images/liked.png') }}" alt="いいね" class="icon">
                             @else
                                 <img src="{{ asset('storage/images/like.png') }}" alt="いいね" class="icon">
                             @endif
-                            </button>
-                        </form>
+                        </button>
+                    </form>
                         <p class="count">{{ $item->likedUsers ? $item->likedUsers->count() : 0 }}</p>
                     </div>
                     <div class="icon-block">
@@ -63,10 +64,8 @@
                     <div class="comment-box">
                         {{-- プロフィール画像と名前を横並びにする --}}
                         <div class="comment-header">
-                        <img src="{{ $comment->user->profile && $comment->user->profile->profile_image
-                            ? asset($comment->user->profile->profile_image)
-                            : asset('storage/images/default.png') }}">
-                            <strong class="comment-username">{{ $comment->user->profile->nickname ?? 'ユーザー' }}</strong>
+                            <img src="{{ optional($comment->user->profile)->profile_image? asset($comment->user->profile->profile_image): asset('storage/images/default.png') }}">
+                            <strong class="comment-username">{{ $comment->user->name }}</strong>
                         </div>
                         {{-- コメントは画像の下に左寄せで表示 --}}
                         <div class="comment-content">

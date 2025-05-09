@@ -8,7 +8,7 @@
 <div class="page-container">
     <h2 class="page-title">商品の出品</h2>
 
-    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- 商品画像 -->
