@@ -22,6 +22,7 @@
         {{-- 支払い方法選択 --}}
         <div class="order-box">
             <form method="GET" action="{{ route('orders.confirm', ['item_id' => $item->id]) }}">
+            @csrf
                 <label for="payment_method" class="order-label">支払い方法</label>
                 <select name="payment_method" id="payment_method" class="form-select" onchange="this.form.submit()">
                     <option value="">選択してください</option>

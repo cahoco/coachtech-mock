@@ -16,8 +16,8 @@
             <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
         </a>
 
-        {{-- 認証画面でなければ、検索とナビゲーションを表示 --}}
-        @if (!Request::is('email/verify'))
+        {{-- ログイン・登録・メール認証画面ではロゴのみ、それ以外はナビゲーション表示 --}}
+        @if (!Request::is('login') && !Request::is('register') && !Request::is('email/verify'))
             {{-- 🔍 検索フォーム --}}
             <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
                 <input 
@@ -54,8 +54,8 @@
     </div>
 </header>
 
-    <main>
-        @yield('content')
-    </main>
+<main>
+    @yield('content')
+</main>
 </body>
 </html>
