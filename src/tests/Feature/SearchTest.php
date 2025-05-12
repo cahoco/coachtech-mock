@@ -15,8 +15,16 @@ class SearchTest extends TestCase
     /** @test */
     public function 商品名で部分一致検索ができる()
     {
-        Item::factory()->create(['name' => 'テスト商品A']);
-        Item::factory()->create(['name' => '別の商品']);
+        $user = User::factory()->create(['name' => 'ダミーユーザー']);
+
+        Item::factory()->create([
+            'name' => 'テスト商品A',
+            'user_id' => $user->id,
+        ]);
+        Item::factory()->create([
+            'name' => '別の商品',
+            'user_id' => $user->id,
+        ]);
 
         $response = $this->get('/?keyword=テスト');
 

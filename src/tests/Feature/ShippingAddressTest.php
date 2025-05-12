@@ -45,18 +45,17 @@ class ShippingAddressTest extends TestCase
             'address' => '大阪府大阪市2-2-2'
         ]);
 
-        // 購入実行
-        $response = $this->actingAs($user)->post(route('orders.store'), [
-            'item_id' => $item->id,
-            'payment_method' => 'card',
+        $response = $this->actingAs($user)->post(route('orders.store', ['item_id' => $item->id]), [
+            'payment_method' => 'convenience',
+            'address_id' => 1,
         ]);
 
-        $response->assertRedirect(route('orders.thanks'));
+        $response->assertRedirect(route('orders.success', ['item_id' => $item->id]));
 
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'shipping_address' => '大阪府大阪市2-2-2'
+            'address' => '大阪府大阪市2-2-2'
         ]);
     }
 

@@ -20,10 +20,13 @@ class PurchaseTest extends TestCase
 
         $response = $this->actingAs($user)->post("/purchase/{$item->id}", [
             'payment_method' => 'credit',
-            'shipping_address' => '東京都渋谷区1-1-1',
+            'address_id' => 1, // ← 必須項目を追加（値は適当でOK）
+            'zipcode' => '123-4567',
+            'address' => '東京都渋谷区1-1-1',
+            'building' => 'テストビル201',
         ]);
 
-        $response->assertRedirect('/'); // 購入完了後の遷移先に応じて変更
+        $response->assertRedirect(route('orders.success', ['item_id' => $item->id]));
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
             'item_id' => $item->id,
@@ -33,12 +36,15 @@ class PurchaseTest extends TestCase
     /** @test */
     public function 購入した商品は一覧画面でSoldと表示される()
     {
-        $user = User::factory()->create();
-        $item = Item::factory()->create();
+        // 出品者は「ダミー」として登録（← これが超重要！）
+        $seller = User::factory()->create(['name' => 'ダミーユーザーA']);
+        $item = Item::factory()->create(['user_id' => $seller->id]);
 
-        // 購入処理
+        // 購入者
+        $buyer = User::factory()->create();
+
         Order::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $buyer->id,
             'item_id' => $item->id,
             'zipcode' => '123-4567',
             'address' => '東京都渋谷区',
@@ -46,9 +52,10 @@ class PurchaseTest extends TestCase
             'payment_method' => 'クレジットカード',
         ]);
 
-        $response = $this->get('/');
+        // ログインした上でアクセス
+        $response = $this->actingAs($buyer)->get('/');
 
-        $response->assertSee('Sold');
+        $response->assertSee('sold');
     }
 
     /** @test */
@@ -61,11 +68,13 @@ class PurchaseTest extends TestCase
         Order::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
+            'zipcode' => '123-4567',
+            'address' => '東京都',
+            'building' => 'テストマンション101',
             'payment_method' => 'credit',
-            'shipping_address' => '東京都',
         ]);
 
-        $response = $this->actingAs($user)->get('/mypage');
+        $response = $this->actingAs($user)->get('/mypage?tab=buy');
 
         $response->assertSee($item->name);
     }

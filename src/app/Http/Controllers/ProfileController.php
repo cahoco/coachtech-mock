@@ -18,7 +18,7 @@ class ProfileController extends Controller
         $soldItems = $user->items;
 
         // 購入商品（Order経由でItem取得）
-        $purchasedItems = $user->orders()->with('item')->get()->pluck('item');
+        $purchasedItems = $user->orders()->with('item.order')->get()->pluck('item');
 
         return view('users.mypage', compact('user', 'tab', 'soldItems', 'purchasedItems'));
     }

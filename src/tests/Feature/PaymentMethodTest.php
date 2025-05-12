@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Item;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Profile;
 use Tests\TestCase;
 
 class PaymentMethodTest extends TestCase
@@ -17,12 +18,25 @@ class PaymentMethodTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('orders.confirm', ['item_id' => $item->id]), [
-            'payment_method' => 'bank',  // 支払い方法を送信
+        // ユーザーのプロフィール情報を作成（配送先）
+        Profile::factory()->create([
+            'user_id' => $user->id,
+            'nickname' => 'テスト太郎',
+            'zipcode' => '123-4567',
+            'address' => '東京都渋谷区',
+            'building' => 'ビル101',
         ]);
 
+        // ✅ GETリクエストで送ること
+        $response = $this->actingAs($user)->get(
+            route('orders.confirm', [
+                'item_id' => $item->id,
+                'payment_method' => 'credit',
+            ])
+        );
+
         $response->assertStatus(200);
-        $response->assertSee('銀行振込'); // Blade内に「銀行振込」などが表示される前提
+        $response->assertSee('カード払い');
     }
 
 }

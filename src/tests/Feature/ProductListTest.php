@@ -15,12 +15,13 @@ class ProductListTest extends TestCase
     /** @test */
     public function 全商品を取得できる()
     {
-        Item::factory()->count(3)->create();
+        // 名前に「ダミー」を含むユーザーを作成
+        $user = User::factory()->create(['name' => 'ダミーユーザー']);
+        $items = Item::factory()->count(3)->for($user)->create();
 
-        $response = $this->get('/'); // 商品一覧ページ
+        $response = $this->get('/');
 
         $response->assertStatus(200);
-        $items = Item::all();
         foreach ($items as $item) {
             $response->assertSee($item->name);
         }
@@ -29,24 +30,28 @@ class ProductListTest extends TestCase
     /** @test */
     public function 購入済み商品はSoldと表示される()
     {
-        $item = Item::factory()->create();
+        $user = User::factory()->create(['name' => 'ダミー出品者']);
+        $item = Item::factory()->for($user)->create();
         Order::factory()->create(['item_id' => $item->id]);
 
         $response = $this->get('/');
 
-        $response->assertSee('Sold');
+        $response->assertSee('sold');
     }
 
     /** @test */
     public function 自分が出品した商品は表示されない()
     {
-        $user = User::factory()->create();
-        $ownItem = Item::factory()->create(['user_id' => $user->id]);
-        $otherItem = Item::factory()->create(); // 別の出品者の商品
+        $loginUser = User::factory()->create(['name' => '本物ユーザー']);
+        $ownItem = Item::factory()->for($loginUser)->create();
 
-        $response = $this->actingAs($user)->get('/');
+        $dummyUser = User::factory()->create(['name' => 'ダミー出品者']);
+        $otherItem = Item::factory()->for($dummyUser)->create();
+
+        $response = $this->actingAs($loginUser)->get('/');
 
         $response->assertSee($otherItem->name);
         $response->assertDontSee($ownItem->name);
     }
+
 }
