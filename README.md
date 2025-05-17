@@ -38,28 +38,37 @@ cp .env.example .env
 ```
 
 .env ファイルの修正
+
+```
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+```
 
 ```
 php artisan key:generate
 php artisan config:clear
 php artisan migrate --seed
+php artisan storage:link
 ```
 
-### 4. メール認証テスト（Mailhog）
-
-ブラウザで http://localhost:8025 にアクセス
-
-## テスト実行
+### テスト実行
 
 ```
 php artisan test
 ```
+
+### ログイン
+
+ブラウザで http://localhost/ にアクセス
+
+#### テストユーザー
+
+- メールアドレス：test@example.com
+- パスワード：0000
 
 #### 注意事項
 
