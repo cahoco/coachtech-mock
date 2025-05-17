@@ -16,15 +16,21 @@ class LikeListTest extends TestCase
     public function test_いいねした商品だけが表示される()
     {
         $user = User::factory()->create();
-        $likedItem = Item::factory()->create();
-        $notLikedItem = Item::factory()->create();
+        $likedItem = Item::factory()->create([
+            'user_id' => User::factory()->create()->id,
+            'name' => 'いいね商品'
+        ]);
+        $notLikedItem = Item::factory()->create([
+            'user_id' => User::factory()->create()->id,
+            'name' => 'いいねしてない商品'
+        ]);
         Like::factory()->create([
             'user_id' => $user->id,
             'item_id' => $likedItem->id,
         ]);
         $response = $this->actingAs($user)->get('/?tab=mylist');
-        $response->assertSee($likedItem->name);
-        $response->assertDontSee($notLikedItem->name);
+        $response->assertSee('いいね商品');
+        $response->assertDontSee('いいねしてない商品');
     }
 
     public function test_購入済み商品はSoldと表示される()
