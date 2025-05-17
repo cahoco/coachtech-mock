@@ -15,7 +15,6 @@
         @endauth
     </div>
 </div>
-
 <div class="item-list">
     @foreach ($items as $item)
         <div class="item-card">
@@ -31,5 +30,4 @@
         </div>
     @endforeach
 </div>
-
 @endsection

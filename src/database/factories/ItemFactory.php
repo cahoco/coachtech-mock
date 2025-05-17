@@ -45,8 +45,8 @@ class ItemFactory extends Factory
                 'mill.jpg',
                 'makeup.jpg',
             ]),
-            'condition_id' => Condition::factory()->create()->id, // condition_id を作成
-            'user_id' => User::factory()->create()->id, // user_id を作成
+            'condition_id' => Condition::factory()->create()->id,
+            'user_id' => User::factory()->create()->id,
         ];
     }
 }

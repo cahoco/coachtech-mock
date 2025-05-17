@@ -15,28 +15,25 @@ use Stripe\Checkout\Session;
 
 class OrderController extends Controller
 {
-    public function confirm($item_id)
+    public function confirm(Request $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
-        $address = $user->profile; // 住所情報は profile に保存されている想定
-
-        return view('orders.confirm', compact('item', 'address'));
+        $address = $user->profile;
+        $payment_method = $request->query('payment_method');
+        return view('orders.confirm', compact('item', 'address', 'payment_method'));
     }
 
     public function store(PurchaseRequest $request, $item_id)
     {
         \Log::debug('Current ENV: ' . App::environment());
-
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
         $profile = $user->profile;
-
         if ($item->order) {
             return back()->withErrors(['message' => 'すでに購入されています']);
         }
-
-        // ✅ テスト環境ではStripe決済をスキップして保存
+        // テスト環境ではStripe決済をスキップして保存
         if (App::environment('testing')) {
             \Log::debug('Creating order with:', [
                 'user_id' => $user->id,
@@ -46,7 +43,6 @@ class OrderController extends Controller
                 'address' => $request->address ?? $profile->address,
                 'building' => $request->building ?? $profile->building,
             ]);
-
             Order::create([
                 'user_id' => $user->id,
                 'item_id' => $item->id,
@@ -57,23 +53,16 @@ class OrderController extends Controller
             ]);
             return redirect()->route('orders.success', ['item_id' => $item_id]);
         }
-
-        // Stripe決済（本番）
         if ($request->payment_method === 'credit') {
-            // ... Stripe 決済処理（省略）
         }
-
         if ($request->payment_method === 'convenience') {
-            // ... コンビニ処理（既存のままでOK）
         }
-
         return back()->withErrors(['payment_method' => '支払い方法を選択してください']);
     }
 
     public function success($item_id)
     {
         $item = Item::findOrFail($item_id);
-
         return view('orders.success', compact('item'));
     }
 

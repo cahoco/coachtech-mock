@@ -11,10 +11,8 @@ class Like extends Model
 
     protected $fillable = ['user_id', 'item_id'];
 
-    // もしtimestampsを使っていないなら明示的にfalse
     public $timestamps = false;
 
-    // 必要に応じてリレーション追加
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -10,13 +10,9 @@
         登録していただいたメールアドレスに認証メールを送付しました。<br>
         メール認証を完了してください。
     </p>
-
-    {{-- ✅ ボタンとして装飾 --}}
     <a href="http://localhost:8025" class="verify-button" target="_blank" rel="noopener noreferrer">
         認証はこちらから
     </a>
-
-    {{-- ✅ 再送リンクもクラス付き --}}
     <div>
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf

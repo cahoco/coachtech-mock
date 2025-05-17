@@ -8,10 +8,8 @@ class ExhibitionRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // 認証済みユーザーならOK
+        return true;
     }
-
-    // app/Http/Requests/ExhibitionRequest.php
 
     public function rules()
     {
@@ -25,7 +23,6 @@ class ExhibitionRequest extends FormRequest
             // テスト・単一選択用
             'category_id'  => ['required_without:categories', 'exists:categories,id'],
 
-            // UI・複数選択用
             'categories'   => ['required_without:category_id', 'array'],
             'categories.*' => ['exists:categories,id'],
 

@@ -9,7 +9,7 @@
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap; /* 画面が狭くなったときに折り返す */
+    flex-wrap: wrap;
 }
 
 .header__logo {
@@ -83,15 +83,12 @@
     transform: scale(1.05);
 }
 
-/* バリデーション */
-
 .error-message {
     color: red;
     font-size: 14px;
     margin-top: 5px;
 }
 
-/* レスポンシブ対応 */
 @media screen and (max-width: 850px) {
     .header__inner {
         flex-direction: column;

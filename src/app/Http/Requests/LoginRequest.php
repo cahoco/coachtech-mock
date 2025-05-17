@@ -49,7 +49,6 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        // ✅ メール認証されていない場合、ログアウトさせてエラー返す
         if (! Auth::user()->hasVerifiedEmail()) {
             Auth::logout();
 

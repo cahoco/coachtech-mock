@@ -49,17 +49,17 @@
 
 .product-actions {
     display: flex;
-    flex-direction: column; /* ←縦並びにする */
-    align-items: flex-start; /* 左寄せ */
-    gap: 10px; /* いいねとボタンの間に余白 */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     margin-bottom: 24px;
 }
 
 .like-form {
-    display: inline-block; /* ✅ formをインライン化して余白を防ぐ */
+    display: inline-block;
     padding: 0;
     margin: 0;
-    line-height: 0; /* ✅ 下の余白をなくす */
+    line-height: 0;
 }
 
 .likes-comments {
@@ -73,8 +73,8 @@
     background: none;
     padding: 0;
     cursor: pointer;
-    width: fit-content; /* ✅ imgの幅にぴったり合わせる */
-    display: inline-block; /* ✅ 余計な縦の余白を防ぐ */
+    width: fit-content;
+    display: inline-block;
 }
 
 .like-button img {
@@ -139,12 +139,12 @@
 
 .product-meta .categories {
     margin-top: 22px;
-    margin-bottom: 16px; /* ✅ カテゴリーと状態の間に余白追加 */
+    margin-bottom: 16px;
 }
 
 .product-meta .condition span:first-child {
     font-weight: bold;
-    margin-right: 50px; /* ✅ 「商品の状態」と「良好」の間隔 */
+    margin-right: 50px;
     display: inline-block;
 }
 
@@ -158,7 +158,7 @@
 }
 
 .categories span:first-child {
-    margin-right: 40px; /* 👈 カテゴリーラベルとタグの間を空ける */
+    margin-right: 40px;
 }
 
 .comment-section {
@@ -217,7 +217,7 @@
 }
 
 .comment-form {
-    max-width: 360px; /* ✅ コメントフォーム全体の最大幅を設定 */
+    max-width: 360px;
     width: 100%;
 }
 

@@ -11,7 +11,6 @@ class ItemsTableSeeder extends Seeder
 {
     public function run()
     {
-        // ✅ ダミーユーザーの作成（マイページに表示されないように、test@example.comではなくdummy@example.comなどで作成）
         $dummyUser = User::factory()->create([
             'name' => 'ダミー出品者',
             'email' => 'dummy@example.com',

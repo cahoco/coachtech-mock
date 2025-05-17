@@ -18,14 +18,11 @@ class ProfileTest extends TestCase
     public function test_プロフィールページに必要な情報が表示される()
     {
         Storage::fake('public');
-
         $user = User::factory()->create([
             'name' => 'テスト太郎',
             'email' => 'test@example.com',
         ]);
-
         $profilePath = 'images/test.jpg';
-
         $user->profile()->create([
             'nickname' => 'テスト太郎',
             'zipcode' => '123-4567',
@@ -33,19 +30,15 @@ class ProfileTest extends TestCase
             'building' => 'テストビル101',
             'profile_image' => $profilePath,
         ]);
-
-        // 商品もダミーで2件登録（出品商品）
         $item1 = Item::factory()->create(['name' => '出品商品1', 'user_id' => $user->id]);
         $item2 = Item::factory()->create(['name' => '出品商品2', 'user_id' => $user->id]);
-
         $response = $this->actingAs($user)->get('/mypage');
-
         $response->assertStatus(200);
-        $response->assertSee('テスト太郎');       // nickname
+        $response->assertSee('テスト太郎');
         $response->assertSee('出品商品1');
         $response->assertSee('出品商品2');
-        $response->assertSee('購入した商品');         // タブ切替表示
-        $response->assertSee($profilePath);       // 画像パス
+        $response->assertSee('購入した商品');
+        $response->assertSee($profilePath);
     }
 
 }

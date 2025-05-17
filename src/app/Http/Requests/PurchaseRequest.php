@@ -25,9 +25,6 @@ class PurchaseRequest extends FormRequest
         ];
     }
 
-    /**
-     * エラーメッセージ定義
-     */
     public function messages(): array
     {
         return [

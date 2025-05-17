@@ -11,7 +11,7 @@
 .order-box {
     padding: 16px;
     margin-bottom: 24px;
-    border-bottom: 1px solid #999; /* 👈 下線に変更 */
+    border-bottom: 1px solid #999;
 }
 
 .order-left {
@@ -24,8 +24,8 @@
 
 .item-summary {
     display: flex;
-    align-items: flex-start; /* 👈 上に揃える */
-    gap: 50px; /* 👈 画像との余白を広げるならここ調整 */
+    align-items: flex-start;
+    gap: 50px;
     margin-bottom: 16px;
 }
 
@@ -39,8 +39,8 @@
 .item-info {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* 👈 上寄せ */
-    margin-top: 8px; /* 👈 必要に応じて微調整 */
+    justify-content: flex-start;
+    margin-top: 8px;
 }
 
 .item-name {
@@ -122,7 +122,7 @@ hr {
     border: 1px solid #ccc;
     font-size: 14px;
     margin-bottom: 24px;
-    padding: 0; /* ← padding除去して個別で調整 */
+    padding: 0;
 }
 
 .border-bottom {
@@ -135,12 +135,12 @@ hr {
 .summary-row {
     display: flex;
     justify-content: space-between;
-    padding: 20px 16px; /* ← 左右も指定 */
-    margin: 0; /* ← 不要な余白除去 */
+    padding: 20px 16px;
+    margin: 0;
 }
 
 .summary-row:not(:last-child) {
-    border-bottom: 1px solid #ccc; /* ← 中央の線。ぴったり外枠に */
+    border-bottom: 1px solid #ccc;
 }
 
 .summary-row span {

@@ -14,8 +14,8 @@ class LikeFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(), // テストユーザーを生成
-            'item_id' => Item::factory(), // テストアイテムを生成
+            'user_id' => User::factory(),
+            'item_id' => Item::factory(),
         ];
     }
 }

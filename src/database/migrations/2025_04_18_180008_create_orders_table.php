@@ -12,10 +12,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->string('payment_method'); // クレジット・コンビニ・代引きなど
+            $table->string('payment_method');
             $table->string('zipcode');
             $table->string('address');
-            $table->string('building')->nullable();
+            $table->string('building');
             $table->timestamps();
         });
     }

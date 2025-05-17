@@ -12,63 +12,52 @@ class CommentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function ログイン済みユーザーはコメントを送信できる()
+    public function test_ログイン済みユーザーはコメントを送信できる()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
-
         $response = $this->actingAs($user)->post("/comment/{$item->id}", [
-            'content' => 'とても良い商品ですね！',  // 'comment' を 'content' に変更
+            'content' => 'とても良い商品ですね！',
         ]);
-
         $response->assertRedirect();
         $this->assertDatabaseHas('comments', [
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'content' => 'とても良い商品ですね！',  // 'comment' を 'content' に変更
+            'content' => 'とても良い商品ですね！',
         ]);
     }
 
-    /** @test */
-    public function 未ログインユーザーはコメントを送信できない()
+    public function test_未ログインユーザーはコメントを送信できない()
     {
         $item = Item::factory()->create();
-
         $response = $this->post("/comment/{$item->id}", [
-            'content' => '未ログインでコメント送信',  // 'comment' を 'content' に変更
+            'content' => '未ログインでコメント送信',
         ]);
-
         $response->assertRedirect('/login');
         $this->assertDatabaseMissing('comments', [
-            'content' => '未ログインでコメント送信',  // 'comment' を 'content' に変更
+            'content' => '未ログインでコメント送信',
         ]);
     }
 
-    /** @test */
-    public function コメントが空だとバリデーションエラーになる()
+    public function test_コメントが空だとバリデーションエラーになる()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
-
         $response = $this->actingAs($user)->post("/comment/{$item->id}", [
-            'content' => '',  // 'comment' を 'content' に変更
+            'content' => '',
         ]);
-
-        $response->assertSessionHasErrors(['content']);  // 'comment' を 'content' に変更
+        $response->assertSessionHasErrors(['content']);
     }
 
-    /** @test */
-    public function コメントが255文字を超えるとバリデーションエラーになる()
+    public function test_コメントが255文字を超えるとバリデーションエラーになる()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
         $longComment = str_repeat('あ', 256);
-
         $response = $this->actingAs($user)->post("/comment/{$item->id}", [
-            'content' => $longComment,  // 'comment' を 'content' に変更
+            'content' => $longComment,
         ]);
-
-        $response->assertSessionHasErrors(['content']);  // 'comment' を 'content' に変更
+        $response->assertSessionHasErrors(['content']);
     }
+
 }

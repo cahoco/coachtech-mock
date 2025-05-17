@@ -14,14 +14,11 @@ class CommentController extends Controller
         $request->validate([
             'content' => 'required|string|max:255',
         ]);
-
-        // コメント保存処理
         Comment::create([
             'user_id' => auth()->id(),
             'item_id' => $item_id,
-            'content' => $request->input('content'),  // 'comment'を'content'に変更
+            'content' => $request->input('content'),
         ]);
-
         return redirect()->route('items.show', ['item_id' => $item_id]);
     }
 

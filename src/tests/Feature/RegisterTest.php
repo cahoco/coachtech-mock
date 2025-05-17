@@ -11,8 +11,7 @@ class RegisterTest extends TestCase
 
     private $url = '/register';
 
-    /** @test */
-    public function 名前が未入力だとバリデーションエラーになる()
+    public function test_名前が未入力だとバリデーションエラーになる()
     {
         $response = $this->post($this->url, [
             'name' => '',
@@ -20,12 +19,10 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertSessionHasErrors(['name']);
     }
 
-    /** @test */
-    public function メールアドレスが未入力だとバリデーションエラーになる()
+    public function test_メールアドレスが未入力だとバリデーションエラーになる()
     {
         $response = $this->post($this->url, [
             'name' => 'テストユーザー',
@@ -33,12 +30,10 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertSessionHasErrors(['email']);
     }
 
-    /** @test */
-    public function パスワードが未入力だとバリデーションエラーになる()
+    public function test_パスワードが未入力だとバリデーションエラーになる()
     {
         $response = $this->post($this->url, [
             'name' => 'テストユーザー',
@@ -46,12 +41,10 @@ class RegisterTest extends TestCase
             'password' => '',
             'password_confirmation' => '',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
-    public function パスワードが7文字以下だとバリデーションエラーになる()
+    public function test_パスワードが7文字以下だとバリデーションエラーになる()
     {
         $response = $this->post($this->url, [
             'name' => 'テストユーザー',
@@ -59,12 +52,10 @@ class RegisterTest extends TestCase
             'password' => '1234567',
             'password_confirmation' => '1234567',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
-    public function パスワードと確認用が一致しないとバリデーションエラーになる()
+    public function test_パスワードと確認用が一致しないとバリデーションエラーになる()
     {
         $response = $this->post($this->url, [
             'name' => 'テストユーザー',
@@ -72,12 +63,10 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'different123',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
-    public function 入力が全て正しい場合はユーザー登録されログイン画面にリダイレクトされる()
+    public function test_入力が全て正しい場合はユーザー登録されログイン画面にリダイレクトされる()
     {
         $response = $this->post($this->url, [
             'name' => 'テストユーザー',
@@ -85,8 +74,8 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertRedirect('/email/verify');
         $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
     }
+
 }

@@ -51,8 +51,6 @@
     text-align: left;
 }
 
-/* マイページのユーザー部分 */
-
 .mypage-header {
     display: flex;
     align-items: center;
@@ -108,6 +106,6 @@
 }
 
 .item-card a {
-    color: black; /* 黒文字にする */
-    text-decoration: none; /* 下線を消す */
+    color: black;
+    text-decoration: none;
 }
