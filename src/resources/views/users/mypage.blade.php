@@ -23,8 +23,9 @@
         <div class="item-list">
             @foreach ($purchasedItems as $item)
                 <div class="item-card">
-                    <img src="{{ asset($item->image) }}" class="item-image" alt="商品画像">
-                    <div class="item-name">{{ $item->name }}</div>
+                    <a href="{{ route('items.show', ['item_id' => $item->id]) }}" class="item-link">
+                        <img src="{{ asset($item->image) }}" class="item-image" alt="商品画像">
+                        <div class="item-name">{{ $item->name }}</div>
                 </div>
             @endforeach
         </div>

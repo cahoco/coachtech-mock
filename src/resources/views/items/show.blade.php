@@ -35,7 +35,7 @@
                                 <div class="count">{{ $item->comments_count ?? 0 }}</div>
                             </div>
                         </div>
-                        @unless (Auth::id() === $item->user_id)
+                        @unless (Auth::id() === $item->user_id || $item->order && $item->order->user_id === Auth::id())
                             <a href="{{ route('orders.confirm', ['item_id' => $item->id]) }}" class="buy-button">購入手続きへ</a>
                         @endunless
                     </div>

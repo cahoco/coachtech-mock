@@ -54,8 +54,35 @@ class OrderController extends Controller
             return redirect()->route('orders.success', ['item_id' => $item_id]);
         }
         if ($request->payment_method === 'credit') {
+            Stripe::setApiKey(config('services.stripe.secret'));
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'jpy',
+                        'unit_amount' => $item->price,
+                        'product_data' => [
+                            'name' => $item->name,
+                        ],
+                    ],
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => route('orders.success', ['item_id' => $item_id]),
+                'cancel_url' => url()->previous(),
+            ]);
+            return redirect($session->url);
         }
         if ($request->payment_method === 'convenience') {
+            Order::create([
+                'user_id' => $user->id,
+                'item_id' => $item->id,
+                'payment_method' => 'convenience',
+                'zipcode' => $profile->zipcode,
+                'address' => $profile->address,
+                'building' => $profile->building,
+            ]);
+            return redirect()->route('orders.success', ['item_id' => $item_id]);
         }
         return back()->withErrors(['payment_method' => '支払い方法を選択してください']);
     }
