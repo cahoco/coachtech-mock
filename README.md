@@ -7,10 +7,9 @@
 ### 1. リポジトリをクローン
 
 ```
-1. git clone git@github.com:cahoco/coachtech-mock.git
-2. cd coachtech-mock
-3. code .
-
+git clone git@github.com:cahoco/coachtech-mock.git
+cd coachtech-mock
+code .
 ```
 
 ### 2. Docker を起動
@@ -21,7 +20,7 @@ docker compose up -d
 
 ### 3. Laravel 環境構築
 
-1.
+1. PHPコンテナ内にログイン
 
 ```
 docker compose exec php bash
