@@ -54,12 +54,6 @@ php artisan db:seed
 php artisan storage:link
 ```
 
-9.
-
-```
-php artisan config:clear
-```
-
 ## テスト実行
 
 ```
