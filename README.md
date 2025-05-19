@@ -60,31 +60,39 @@ php artisan storage:link
 php artisan config:clear
 ```
 
-### テスト実行
+## テスト実行
 
 ```
 php artisan test
 ```
 
-### ログイン
+## ログイン
 
 ブラウザで http://localhost/ にアクセス
-
-#### テストユーザー
 
 - メールアドレス：test@example.com
 - パスワード：0000
 
-## 📦 使用技術
+## 使用技術
 
-- PHP 8.x
-- Laravel 10.x
-- MySQL
+- PHP 8.2.28
+- Laravel 8.83.29
+- MySQL 8.0.26 
 - Docker / Docker Compose
-- Laravel Fortify（認証）
+- Laravel Fortify（認証）v1.19.1
 - PHPUnit（テスト）
 - Mailhog（メール認証テスト用）
 
+## テーブル設計
+
+## ER図
+
+## URL
+
+* 開発環境：http://localhost/
+* phpMyAdmin:：http://localhost:8080/
+
 #### 注意事項
 
-※ `.env.testing` は Git 履歴から削除済みです。今後コミットしないよう `.gitignore` に追加済み。
+※ `.env.testing` は Git 履歴から削除済みです。今後コミットしないよう `.gitignore` に追加済み。  
+※
