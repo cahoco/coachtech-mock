@@ -4,39 +4,20 @@
 
 ## 環境構築
 
-### 1. リポジトリをクローン
+#### Dockerビルド
 
-```
-git clone git@github.com:cahoco/coachtech-mock.git
-cd coachtech-mock
-code .
-```
+1. ```git clone git@github.com:cahoco/coachtech-mock.git```
+2. ```cd coachtech-mock```
+3. DockerDesktopアプリを立ち上げる
+4. ```docker compose up -d```
 
-### 2. Docker を起動
+#### Laravel 環境構築
 
-```
-docker compose up -d
-```
+1. ```docker compose exec php bash```
 
-### 3. Laravel 環境構築
+2. ```composer install```
 
-1. PHPコンテナ内にログイン
-
-```
-docker compose exec php bash
-```
-
-2. composer のインストール
-
-```
-composer install
-```
-
-3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.env ファイルを作成
-
-```
-cp .env.example .env
-```
+3. ```cp .env.example .env```
 
 4. env に以下の環境変数を追加
 
