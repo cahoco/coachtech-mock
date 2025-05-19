@@ -71,7 +71,7 @@ php artisan test
 ブラウザで http://localhost/ にアクセス
 
 - メールアドレス：test@example.com
-- パスワード：0000
+- パスワード：00000000
 
 ## 使用技術
 
