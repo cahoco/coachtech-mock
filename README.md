@@ -33,6 +33,10 @@ DB_PASSWORD=laravel_pass
 MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="Laravel App"
 ```
+```
+STRIPE_KEY=pk_test_***
+STRIPE_SECRET=sk_test_***
+```
 
 5. アプリケーションキーの作成
 
