@@ -30,7 +30,7 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 ```
-MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="Laravel App"
 ```
 ```
