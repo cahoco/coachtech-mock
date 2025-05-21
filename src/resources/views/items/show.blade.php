@@ -43,11 +43,13 @@
                         <p class="product-description">{!! nl2br(e($item->description)) !!}</p>
                     <h3 class="section-title">商品の情報</h3>
                         <div class="product-meta">
-                            <div class="categories">
-                                <span>カテゴリー</span>
-                                @foreach($item->categories as $category)
-                                    <span class="category-tag">{{ $category->name }}</span>
-                                @endforeach
+                            <div class="meta-row">
+                                <div class="meta-label">カテゴリー</div>
+                                <div class="meta-values">
+                                    @foreach($item->categories as $category)
+                                        <span class="category-tag">{{ $category->name }}</span>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="condition">
                                 <span>商品の状態</span>

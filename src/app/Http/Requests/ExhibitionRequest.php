@@ -40,6 +40,7 @@ class ExhibitionRequest extends FormRequest
             'image.mimes' => '画像はjpegまたはpng形式のみです。',
             'condition_id.required' => '商品の状態を選択してください。',
             'condition_id.exists' => '選択された商品の状態が正しくありません。',
+            'categories.required_without' => 'カテゴリを1つ以上選択してください。',
             'categories.required' => 'カテゴリを1つ以上選択してください。',
             'categories.*.exists' => '選択されたカテゴリが正しくありません。',
             'price.required' => '価格を入力してください。',
