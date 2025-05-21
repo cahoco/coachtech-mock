@@ -62,18 +62,19 @@ php artisan db:seed
 php artisan storage:link
 ```
 
-## テスト実行
-
-```
-php artisan test
-```
-
 ## ログイン
 
 ブラウザで http://localhost/ にアクセス
 
 - メールアドレス：test@example.com
 - パスワード：00000000
+
+
+## テスト実行
+
+```
+php artisan test
+```
 
 ## 使用技術
 
