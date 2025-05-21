@@ -11,14 +11,19 @@
     <body>
         <header class="header">
             <div class="header__inner">
-                <a class="header__logo" href="{{ route('items.index') }}">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
-                </a>
+                <div class="header__left">
+                    <a class="header__logo" href="{{ route('items.index') }}">
+                        <img src="{{ asset('images/logo.svg') }}" alt="Coachtech" />
+                    </a>
+                </div>
+                <div class="header__center">
                 @if (!Request::is('login') && !Request::is('register') && !Request::is('email/verify'))
                     <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
                         <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
                         <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
                     </form>
+                </div>
+                <div class="header__right">
                     <nav class="header__nav">
                         @auth
                             <form class="form" action="/logout" method="post">
@@ -35,6 +40,7 @@
                         @endguest
                     </nav>
                 @endif
+                </div>
             </div>
         </header>
         <main>

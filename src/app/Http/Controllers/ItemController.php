@@ -28,9 +28,8 @@ class ItemController extends Controller
                 $items = collect();
             }
         } else {
-            $query = Item::whereHas('user', function ($q) {
-                $q->where('name', 'like', '%ダミー%');
-            })->with(['likedUsers', 'comments', 'order']);
+            $query = Item::where('user_id', '!=', Auth::id())
+                ->with(['likedUsers', 'comments', 'order']);
             if ($keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%');
             }

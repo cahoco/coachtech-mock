@@ -7,11 +7,12 @@
 .page-container {
     max-width: 500px;
     margin: 50px auto;
-    text-align: center;
+    text-align: left;
     padding: 0 20px;
 }
 
 .page-title {
+    text-align: center;
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 30px;
@@ -19,6 +20,7 @@
 
 .form-group {
     text-align: left;
+    margin-bottom: 30px;
 }
 
 .form-group label {
@@ -70,8 +72,9 @@
 
 .profile-image-block {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: 20px;
     margin-bottom: 30px;
 }
 
@@ -80,7 +83,6 @@
     height: 100px;
     background-color: #ddd;
     border-radius: 50%;
-    margin-bottom: 10px;
 }
 
 .image-button {
@@ -114,7 +116,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -131,6 +133,7 @@
     border: 2px solid #f66;
     border-radius: 9999px;
     color: #f66;
+    font-size: 9px;
     font-weight: bold;
     cursor: pointer;
     position: relative;

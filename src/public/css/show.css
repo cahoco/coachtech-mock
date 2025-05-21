@@ -262,3 +262,33 @@
     color: red;
     margin-top: 4px;
 }
+
+@media screen and (max-width: 768px) {
+    .product-main {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .product-image img {
+        max-width: 200px;
+    }
+
+    .product-title {
+        font-size: 24px;
+    }
+
+    .product-price {
+        font-size: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .buy-button {
+        font-size: 14px;
+        padding: 8px 12px;
+        max-width: 100%;
+    }
+}

@@ -7,9 +7,11 @@
 @section('content')
 <div class="mypage-container">
     <div class="mypage-header">
-        <img src="{{ asset($user->profile->profile_image ?? 'storage/images/default.png') }}" class="user-icon">
-        <div class="user-info">
-            <div class="user-name">{{ $user->profile->nickname ?? 'ユーザー名未登録' }}</div>
+        <div class="mypage-left">
+            <img src="{{ asset($user->profile->profile_image ?? 'storage/images/default.png') }}" class="user-icon">
+            <div class="user-info">
+                <div class="user-name">{{ $user->profile->nickname ?? 'ユーザー名未登録' }}</div>
+            </div>
         </div>
         <div class="edit-button">
             <a href="{{ route('profile.edit') }}" class="btn-edit">プロフィールを編集</a>

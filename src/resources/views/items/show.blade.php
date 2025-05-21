@@ -35,9 +35,13 @@
                                 <div class="count">{{ $item->comments_count ?? 0 }}</div>
                             </div>
                         </div>
-                        @unless (Auth::id() === $item->user_id || $item->order && $item->order->user_id === Auth::id())
+                        @php
+                            $isSoldOut = !is_null($item->order);
+                            $isOwner = Auth::id() === $item->user_id;
+                        @endphp
+                        @if (! $isSoldOut && ! $isOwner)
                             <a href="{{ route('orders.confirm', ['item_id' => $item->id]) }}" class="buy-button">購入手続きへ</a>
-                        @endunless
+                        @endif
                     </div>
                     <h3 class="section-title">商品説明</h3>
                         <p class="product-description">{!! nl2br(e($item->description)) !!}</p>
@@ -62,7 +66,7 @@
                             <div class="comment-box">
                                 <div class="comment-header">
                                     <img src="{{ optional($comment->user->profile)->profile_image? asset($comment->user->profile->profile_image): asset('storage/images/default.png') }}">
-                                    <strong class="comment-username">{{ $comment->user->name }}</strong>
+                                    <strong class="comment-username">{{ optional($comment->user->profile)->nickname ?? $comment->user->name }}</strong>
                                 </div>
                                 <div class="comment-content">
                                     {{ $comment->content }}
