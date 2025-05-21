@@ -88,7 +88,11 @@ php artisan test
 
 ## テーブル設計
 
+<img width="421" alt="coachtech-mock-table" src="https://github.com/user-attachments/assets/62a9a110-14fb-4e44-b4cd-ce3fe9e23e53" />
+
 ## ER図
+
+<img width="578" alt="coachtech-mock-er" src="https://github.com/user-attachments/assets/362e0fe8-2170-4688-a340-aae130e6e8df" />
 
 ## URL
 
