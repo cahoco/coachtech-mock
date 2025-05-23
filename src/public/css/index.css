@@ -18,11 +18,10 @@
 }
 
 .item-list {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: clamp(20px, 4vw, 40px);
     padding: 30px 40px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
 }
 
 .item-card {
